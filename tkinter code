@@ -1,0 +1,93 @@
+import tkinter as tk
+from tkinter import messagebox
+class Contact:
+def _init_(self, first_name, last_name,phonenumber, email, birthday):
+self.first_name = first_name
+self.last_name = last_name
+self.phonenumber=phonenumber
+self.email = email
+self.birthday = birthday
+class ContactManager:
+def _init_(self, master):
+self.master = master
+master.title("Contact Manager")
+# Create labels and input fields
+self.first_name_label = tk.Label(master, text="First Name")
+self.first_name_label.grid(row=0, column=0)
+self.first_name_entry = tk.Entry(master)
+self.first_name_entry.grid(row=0, column=1)
+
+self.last_name_label = tk.Label(master, text="Last Name")
+self.last_name_label.grid(row=1, column=0)
+self.last_name_entry = tk.Entry(master)
+self.last_name_entry.grid(row=1, column=1)
+
+self.email_label = tk.Label(master, text="Email")
+self.email_label.grid(row=2, column=0)
+self.email_entry = tk.Entry(master)
+self.email_entry.grid(row=2, column=1)
+
+self.birthday_label = tk.Label(master, text="Birthday")
+self.birthday_label.grid(row=3, column=0)
+self.birthday_entry = tk.Entry(master)
+self.birthday_entry.grid(row=3, column=1)
+
+self.phonenumber_label = tk.Label(master, text="Number")
+self.phonenumber_label.grid(row=4, column=0)
+self.phonenumber_entry = tk.Entry(master)
+self.phonenumber_entry.grid(row=4, column=1)
+
+# Create buttons
+self.add_button = tk.Button(master, text="Add Contact", command=self.add_contact)
+self.add_button.grid(row=5, column=0)
+
+self.search_button = tk.Button(master, text="Search Contact", command=self.search_contact)
+self.search_button.grid(row=5, column=1)
+
+# Initialize contacts list
+self.contacts = []
+
+def add_contact(self):
+
+# Get input values from entry fields
+first_name = self.first_name_entry.get()
+last_name = self.last_name_entry.get()
+phonenumber=self.phonenumber_entry.get()
+email = self.email_entry.get()
+birthday = self.birthday_entry.get()
+# Create a new Contact object
+contact = Contact(first_name, last_name,phonenumber, email, birthday)
+# Add the contact to the contacts list
+self.contacts.append(contact)
+# Clear the entry fields
+self.first_name_entry.delete(0, tk.END)
+self.last_name_entry.delete(0, tk.END)
+self.phonenumber_entry.delete(0, tk.END)
+self.email_entry.delete(0, tk.END)
+self.birthday_entry.delete(0, tk.END)
+
+def search_contact(self):
+# Get input value from entry field
+search_name = self.first_name_entry.get()
+
+# Search for contact in the contacts list
+found_contact = None
+for contact in self.contacts:
+if contact.first_name == search_name:
+found_contact = contact
+break
+
+# Display the contact details if found
+if found_contact:
+messagebox.showinfo("Contact Details",
+
+f"Name: {found_contact.first_name} {found_contact.last_name}\n"
+f"Number: {found_contact.phonenumber}\n"
+f"Email: {found_contact.email}\n"
+f"Birthday: {found_contact.birthday}")
+else:
+messagebox.showinfo("Contact Details", "No contact found with that name.")
+
+root = tk.Tk()
+contact_manager = ContactManager(root)
+root.mainloop()
